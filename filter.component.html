@@ -1,0 +1,70 @@
+
+<form [formGroup]="fg">
+      <mat-form-field appearance="fill" class="w-100">
+          <mat-label>search</mat-label>
+              <input type="search" matInput formControlName="search" (keyup)="searchemployee()">
+              <mat-icon matPrefix>search</mat-icon>
+              <mat-icon matSuffix (click)="clearfilter()">close</mat-icon>
+      </mat-form-field>
+</form>
+<table mat-table [dataSource]="employee"  matSort>
+
+  <!-- customerName column definition starts -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>id</th>
+    <td mat-cell *matCellDef="let employe" >{{employe.id}}</td>
+    <td mat-footer-cell *matFooterCellDef colspan="4" [ngClass]="{'hide' : !iscomplete}"> Total </td>
+
+  </ng-container>
+  <!-- customerName column definition ends -->
+
+  <!-- location column definition starts -->
+  <ng-container matColumnDef="employeename">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>employeename</th>
+    <td mat-cell *matCellDef="let employe" class="w-25">{{employe.employeename}}</td>
+  </ng-container>
+  <!-- location column definition ends -->
+
+  <!-- date column definition starts -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>email</th>
+    <td mat-cell *matCellDef="let employe" class="w-25">{{employe.email}}</td>
+  </ng-container>
+  <!-- date column definition ends -->
+  <ng-container matColumnDef="contactnumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Dcontactnumberate</th>
+    <td mat-cell *matCellDef="let employe" class="w-25">{{employe.contactnumber}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="city">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>city</th>
+    <td mat-cell *matCellDef="let employe" class="w-25">{{employe.city}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="department" >
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>department</th>
+    <td mat-cell *matCellDef="let employe" class="w-25">{{employe.department}}</td>
+  </ng-container>
+ 
+
+  <ng-container matColumnDef="loading" >
+    <td mat-footer-cell *matFooterCellDef colspan="6" class="text-center" [ngClass]="{'hide ' : !dataloading}">
+      <div [ngClass]="{'hidden ' : iserror}"><mat-spinner class="marginauto"></mat-spinner></div>
+      {{employeestatusloading}}
+      </td>
+
+  </ng-container>
+  <!-- date column definition ends -->
+  
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let employe; columns: columnsToDisplay"></tr>
+  <tr mat-footer-row *matFooterRowDef="['id']"></tr>
+  <tr mat-footer-row *matFooterRowDef="['loading']"></tr>
+
+</table>
+  <div [ngClass]="{'hide' : !iscomplete}">
+          <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" 
+          showFirstLastButtons>
+            </mat-paginator>
+  </div>
+  
